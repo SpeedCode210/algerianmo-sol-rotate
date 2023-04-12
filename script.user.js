@@ -4,7 +4,7 @@
 // @include     *algerianmo.com/control/correction/*
 // @icon http://www.algerianmo.com/static/images/favicon.ico
 // @downloadURL https://github.com/SpeedCode210/algerianmo-sol-rotate/raw/main/script.user.js
-// @version     1.0
+// @version     1.1
 // @author      Raouf Ould Ali / SpeedCode#0050
 // @description 1/25/2023, 5:34:04 PM
 // ==/UserScript==
@@ -58,13 +58,17 @@ const angle = 90;
 
 document.getElementById("switch-rotate").addEventListener("click", rotateImage);
 
-
 function rotateImage() {
   // Ensure angle range of 0 to 359 with "%" operator,
   // e.g., 450 -> 90, 360 -> 0, 540 -> 180, etc.
   rotation = (rotation + angle) % 360;
+console.log(rotated.naturalHeight)
 
-  rotated.style.transform = `rotate(${rotation}deg)`;
+  let transform = `rotate(${rotation}deg)`;
+  if(rotation % 180 != 0){
+  transform += ' scale(' + (100*rotated.naturalWidth/rotated.naturalHeight) + '%)'
+  }
+  rotated.style.transform = transform;
 }
 
 
